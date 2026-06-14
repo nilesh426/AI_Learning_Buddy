@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: learning-buddy-backend
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=production
+      - FLASK_APP=app.py
+      - SECRET_KEY=prod-secret-key-change-in-production-buddy
+      - JWT_SECRET_KEY=jwt-secret-change-in-production-buddy
+      - DATABASE_URL=sqlite:////app/data/ai_learning_buddy.db
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - OPENAI_MODEL=gpt-3.5-turbo
+      - HUGGINGFACE_API_KEY=${HUGGINGFACE_API_KEY}
+      - USE_HUGGINGFACE_FALLBACK=true
+      - ADMIN_EMAIL=admin@ailearningbuddy.com
+      - ADMIN_PASSWORD=Admin@123456
+    volumes:
+      - backend-data:/app/data
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: learning-buddy-frontend
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+volumes:
+  backend-data:
