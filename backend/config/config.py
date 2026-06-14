@@ -14,7 +14,7 @@ class Config:
     MAX_CONTENT_LENGTH = int(os.environ.get('MAX_CONTENT_LENGTH', 16 * 1024 * 1024))
 
     # Gemini
-    GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY', 'AQ.Ab8RN6JmaNTZxTISehhrCy7ZDik2TjvQlBC7bxolNgipr-wxHQ')
+    GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY', 'Your_API_Key')
     GEMINI_MODEL = os.environ.get('GEMINI_MODEL', 'gemini-2.0-flash')
 
     # Hugging Face fallback
